@@ -4,7 +4,7 @@ import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const ContactCard = (props) => {
-  console.log(props)
+  console.log(props);
   const { id, name, email } = props.contacts;
   return (
     <>
@@ -33,7 +33,18 @@ const ContactCard = (props) => {
           >
             <i
               className="trash alternate outline icon"
-              style={{ color: "red", marginTop: "7px" }}
+              style={{ color: "red", marginTop: "7px", marginLeft: "10px" }}
+            ></i>
+          </Link>
+          <Link
+            to={{
+              pathname: `/edit`,
+              state: { contacts: props.contacts },
+            }}
+          >
+            <i
+              className="edit alternate outline icon"
+              style={{ color: "blue", marginTop: "7px" }}
             ></i>
           </Link>
         </Card.Content>
