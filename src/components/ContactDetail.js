@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import user from "../images/user.png";
+import { useLocation } from 'react-router-dom';
 
-const ContactDetail = (props) => {
-  console.log(props)
-  const { name, email } = props.location.state.contacts;
+const ContactDetail = () => {
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
+  const { name, email } = data;
   return (
     <>
       <br></br>

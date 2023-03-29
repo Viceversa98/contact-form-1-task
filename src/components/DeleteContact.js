@@ -1,21 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, Image } from "semantic-ui-react";
-
+import { useContactsCrud } from "../context/ContactCrudContext";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 // run the delete contact with removeContactHandler function from App.js
-class DeleteContact extends React.Component {
-  delete = (e) => {
+const DeleteContact = () => {
+  const navigate = useNavigate();
+  const {removeContactHandler} =useContactsCrud();
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
+  const { id,name, email } = data;
+
+  const deleteId = (e) => {
     e.preventDefault();
-    this.props.removeContactHandler(this.props.location.state.contacts.id);
+   removeContactHandler(id);
 
-    console.log(this.props.location.state.contacts.id + " id has been delele");
-    this.props.history.push("/");
+    console.log(id + " id has been delete");
+    navigate("/");
   };
+  
 
-  render() {
-    const { id, name, email } = this.props.location.state.contacts; // to show the current id = name and email in detail
-    console.log(this.props);
+    // to show the current id = name and email in detail
+  
     return (
+     
       <>
         <br></br>
         <br></br>
@@ -29,9 +39,9 @@ class DeleteContact extends React.Component {
           />
           <Card.Content>
             <Card.Header>{name}</Card.Header>
-            <Card.Meta>{email}</Card.Meta>
+            <Card.Meta>{email}</Card.Meta> 
             <Card.Description>
-              <Button basic color="green" key={id} onClick={this.delete}>
+              <Button basic color="green" onClick={deleteId} >
                 Yes
               </Button>
 
@@ -45,6 +55,6 @@ class DeleteContact extends React.Component {
         </Card>
       </>
     );
-  }
+  
 }
 export default DeleteContact;

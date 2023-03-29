@@ -2,9 +2,10 @@ import React from "react";
 import user from "../images/user.png";
 import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ContactCard = (props) => {
-  console.log(props);
+  const navigate = useNavigate();
   const { id, name, email } = props.contacts;
   return (
     <>
@@ -15,9 +16,14 @@ const ContactCard = (props) => {
         <Card.Content>
           <Image floated="right" size="mini" src={user} alt="user" />
           <Link
+            
             to={{
               pathname: `/contact/${id}`,
-              state: { contacts: props.contacts },
+            }}
+
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/contact/${id}`,{state: {id, name, email }});
             }}
           >
             <Card.Header>{name}</Card.Header>
@@ -28,7 +34,11 @@ const ContactCard = (props) => {
           <Link
             to={{
               pathname: `/delete/${id}`,
-              state: { contacts: props.contacts },
+            }}
+
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/delete/${id}`,{state: {id, name, email }});
             }}
           >
             <i

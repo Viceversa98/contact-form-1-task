@@ -1,13 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef , useEffect} from "react";
 import ContactCard from "./ContactCard";
 import { Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { useContactsCrud } from "../context/ContactCrudContext";
 const ContactList = (props) => {
-  console.log(props);
+  const {contacts,retriveContacts} = useContactsCrud();
   const inputEl = useRef("");
-  const renderContactList = props.contacts.map((contacts) => {
+  const renderContactList = contacts.map((contacts) => {
     return <ContactCard contacts={contacts} key={contacts.id} />;
   });
+
+  useEffect(()=> {
+    retriveContacts();
+  },[]);
 
   const getSearhTerm = () => {
     props.searchKeyword(inputEl.current.value);
