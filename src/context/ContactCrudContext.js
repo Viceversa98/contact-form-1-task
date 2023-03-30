@@ -5,6 +5,8 @@ const contactsCrudContext = createContext();
 
 export function ContactsCrudContextProvider({ children }) {
   const [contacts, setContacts] = useState([]);
+  const [searchTerm,setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
 
   //Retrieve contacts
   const retriveContacts = async () => {
@@ -49,8 +51,29 @@ export function ContactsCrudContextProvider({ children }) {
     );
   };
 
+  //Search Function
+  
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newContactList = contacts.filter((contacts) => {
+        return Object.values(contacts)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResult(newContactList);
+    } else {
+      setSearchResult(contacts);
+    }
+  };
+
+
   const value = {
     contacts,
+    searchTerm,
+    searchResult,
+    searchHandler,
     retriveContacts,
     removeContactHandler,
     addContactHandler,

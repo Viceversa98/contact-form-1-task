@@ -13,29 +13,8 @@ import api from "../api/contacts";
 
 function App() {
   // const LOCAL_STORAGE_KEY = "contacts";
-  const [contacts, setContact] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    if (searchTerm !== "") {
-      const newContactList = contacts.filter((contacts) => {
-        return Object.values(contacts)
-          .join(" ")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
-      setSearchResult(newContactList);
-    } else {
-      setSearchResult(contacts);
-    }
-  };
-
-  useEffect(() => {
-    // if (contacts.length)
-    //  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  
+ 
 
   return (
     <>

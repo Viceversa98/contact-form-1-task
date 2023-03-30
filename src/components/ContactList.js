@@ -4,9 +4,9 @@ import { Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useContactsCrud } from "../context/ContactCrudContext";
 const ContactList = (props) => {
-  const {contacts,retriveContacts} = useContactsCrud();
-  const inputEl = useRef("");
-  const renderContactList = contacts.map((contacts) => {
+  const {contacts,retriveContacts,searchTerm,searchResult,searchHandler} = useContactsCrud();
+ 
+  const renderContactList = (searchTerm.length < 1 ? contacts: searchResult).map((contacts) => {
     return <ContactCard contacts={contacts} key={contacts.id} />;
   });
 
@@ -14,8 +14,8 @@ const ContactList = (props) => {
     retriveContacts();
   },[]);
 
-  const getSearhTerm = () => {
-    props.searchKeyword(inputEl.current.value);
+  const onUserSearch = (e) => {
+   searchHandler(e.target.value);
   };
 
   return (
@@ -30,12 +30,12 @@ const ContactList = (props) => {
       <div className="ui search">
         <div className="ui icon input">
           <input
-            ref={inputEl}
+            
             type="text"
             placeholder="Search Contact"
             className="prompt"
-            value={props.term}
-            onChange={getSearhTerm}
+            value={searchTerm}
+            onChange={(e) => onUserSearch(e)}
           />
           <i className="search icon"></i>
         </div>
