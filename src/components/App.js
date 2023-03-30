@@ -17,20 +17,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
-
-  const updateContactHandler = async (contact) => {
-    const response = await api.put(`contacts/${contact.id}`, contact);
-    console.log(response.data);
-    const { id, name, email } = response.data;
-
-    setContact(
-      contacts.map((contact) => {
-        return contact.id === id ? { ...response.data } : contact;
-      })
-    );
-  };
-
-
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
     if (searchTerm !== "") {
@@ -45,7 +31,6 @@ function App() {
       setSearchResult(contacts);
     }
   };
-
 
   useEffect(() => {
     // if (contacts.length)
@@ -90,7 +75,7 @@ function App() {
                 // )}
               />
               <Route
-                path="/edit"
+                path="/edit/:id"
                 element={<EditContact />}
                 // render={(props) => (
                 //   <EditContact

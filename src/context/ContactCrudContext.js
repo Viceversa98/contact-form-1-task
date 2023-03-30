@@ -34,14 +34,27 @@ export function ContactsCrudContextProvider({ children }) {
     });
 
     setContacts(newContactList);
-  }
+  };
+
+  // Update Contact
+  const updateContactHandler = async (contact) => {
+    const response = await api.put(`contacts/${contact.id}`, contact);
+    console.log(response.data);
+    const { id } = response.data;
+
+    setContacts(
+      contacts.map((contact) => {
+        return contact.id === id ? { ...response.data } : contact;
+      })
+    );
+  };
 
   const value = {
     contacts,
     retriveContacts,
     removeContactHandler,
     addContactHandler,
-
+    updateContactHandler,
   };
 
   return (

@@ -16,14 +16,12 @@ const ContactCard = (props) => {
         <Card.Content>
           <Image floated="right" size="mini" src={user} alt="user" />
           <Link
-            
             to={{
               pathname: `/contact/${id}`,
             }}
-
             onClick={(e) => {
               e.preventDefault();
-              navigate(`/contact/${id}`,{state: {id, name, email }});
+              navigate(`/contact/${id}`, { state: { id, name, email } });
             }}
           >
             <Card.Header>{name}</Card.Header>
@@ -35,10 +33,9 @@ const ContactCard = (props) => {
             to={{
               pathname: `/delete/${id}`,
             }}
-
             onClick={(e) => {
               e.preventDefault();
-              navigate(`/delete/${id}`,{state: {id, name, email }});
+              navigate(`/delete/${id}`, { state: { id, name, email } });
             }}
           >
             <i
@@ -46,12 +43,7 @@ const ContactCard = (props) => {
               style={{ color: "red", marginTop: "7px", marginLeft: "10px" }}
             ></i>
           </Link>
-          <Link
-            to={{
-              pathname: `/edit`,
-              state: { contacts: props.contacts },
-            }}
-          >
+          <Link to={`/edit/${id}`} state={{ contacts: props.contacts }}>
             <i
               className="edit alternate outline icon"
               style={{ color: "blue", marginTop: "7px" }}
